@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include <iostream>
 #include <iomanip>
-#include<math.h>
+#include <math.h>
 #include<ctime>
 
 using namespace std;
@@ -41,7 +41,7 @@ int prod_array(int a[], int size) {
 	return prod;
 }
 void fill_arr(int a[], int size) {
-	srand(time(NULL));
+	srand(time(null));
 	for (int i = 0; i < size; i++)
 		a[i] = rand() % 10 + 1;
 }
@@ -158,6 +158,76 @@ int check_el(double a[], int size, int x)
 			count++;
 	return count;
 }
+//16. **Дан одномерный массив целых чисел.Напишите не рекурсивную функцию,
+//которая осуществляет нахождения искомого значения с помощью бинарного
+//поиска.Функция возвращает позицию вхождения искомого значения.
+//Проиллюстрируйте работу функции примером.
+
+// check case 2
+
+int binary_search(int a[], int size, int key)
+{
+	int low;
+	int high;
+	int middle;
+
+	int i = 0;
+	for (int pass = 1; pass < size; pass++) // здесь просто отсортируем
+	{
+		i = pass;
+		while ((a[i] < a[i - 1]) && i > 0)
+		{
+			swap(a[i], a[i - 1]);
+			i--;
+		}
+	}
+	for (i = 0; i < size; i++)
+		cout << a[i] << " ";
+
+	low = 0;
+	high = size - 1;
+
+	while (low <= high)
+	{
+		middle = (low + high) / 2;
+		if (key > a[middle])
+			low = middle + 1;
+		else if (key < a[middle])
+			high = middle - 1;
+		else break; // искомое число найдено
+	}
+
+	return middle;
+}
+//17. **Напишите функцию, которая принимает три массива целых чисел.Выполнить
+//поэлементное сложение элементов первых двух массивов, и результат занести в
+//третий массив.
+// case 3
+
+void fill_sum_arr(int a[], int b[], int c[], int size1, int size2, int size3) {
+	int min = INT_MAX;
+	min = size1 < size2 ? size1 : size2;
+	min = size3 < min ? size3 : min;
+	for (int i = 0; i < min; i++)
+		c[i] = a[i] + b[i];
+}
+
+// 18.	**Напишите функцию, которая принимает вещественное число и количество знаков и возвращает округленное число до указанного знака.
+// case 1
+
+double round_num(double x, int n) {
+
+	int a[100];
+	int i = 0;
+	while (true)
+	{
+		x = x / 10;
+		i++;
+
+	}
+
+	return x;
+}
 
 
 int main()
@@ -178,11 +248,11 @@ int main()
 		case 1:
 		{
 
-			int a[] = { 2, 4, 0, 7, 4, 2 };
+			/*int a[] = { 2, 4, 0, 7, 4, 2 };
 			double b[] = { 1.5, 0, 2.4, 1.3, 0, 1 };
 
 			int x = 3.7;
-			cout << check_el(a, 6, x) << endl;
+			cout << check_el(a, 6, x) << endl;*/
 
 			/*cout << max_el(a, 6) << endl;*/
 
@@ -248,17 +318,31 @@ int main()
 		break;
 		case 2:
 		{
+			int a[] = { 4, 0, 7, 17, 11, 1, 18, 20 };
+			int key;
+			cin >> key;
+
+			cout << binary_search(a, 8, key) << endl << endl;
 
 		}
 		break;
 		case 3:
 		{
+			int a[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+			int b[5] = { 0, 2, 4, 6, 8 };
+			int c[20];
 
+			fill_sum_arr(a, b, c, 9, 5, 20);
+			for (int i = 0; i < 5; i++)
+				cout << c[i] << " ";
+			cout << endl;
 		}
-		break;
 		case 4:
 		{
+			double x = 123.456;
+			int n = 4;
 
+			cout << round_num(x, n) << endl << endl;
 		}
 		break;
 		case 5:
