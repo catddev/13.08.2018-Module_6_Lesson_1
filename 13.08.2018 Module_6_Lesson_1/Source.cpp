@@ -215,20 +215,35 @@ void fill_sum_arr(int a[], int b[], int c[], int size1, int size2, int size3) {
 // 18.	**Напишите функцию, которая принимает вещественное число и количество знаков и возвращает округленное число до указанного знака.
 // case 1
 
-double round_num(double x, int n) {
+double round_num(double x, int k, int n) { // где k - изначальное количество ненулевых цифр после заятой в числе x
 
-	int a[100];
-	int i = 0;
-	while (true)
+/*int k = 0;*/
+
+//while (x / 10 != 0)
+//{
+//	x *= 10; // через отладчик видно что при умножении получается 1234.56999999
+//	k++; // подсчет знаков после запятой изначально
+//}
+//int a = int(x / 10);
+//k--;
+
+	int a = x*pow(10, k);
+
+	int i = n;
+	while (i != 0)
 	{
-		x = x / 10;
-		i++;
-
+		if (i == 1)
+		{
+			if (a % 10 >= 5) a = (a / 10 + 1)*pow(10, n);
+			else a = a / 10 * pow(10, n);
+		}
+		else a /= 10;
+		i--;
 	}
+	x = double(a / pow(10, k));
 
 	return x;
 }
-
 
 int main()
 {
@@ -339,15 +354,19 @@ int main()
 		}
 		case 4:
 		{
-			double x = 123.456;
+			/*double x = 123.456;
 			int n = 4;
 
-			cout << round_num(x, n) << endl << endl;
+			cout << round_num(x, n) << endl << endl;*/
 		}
 		break;
 		case 5:
 		{
+			double x;
+			int n, k;
+			cin >> x >> k >> n;
 
+			cout << round_num(x, k, n) << endl << endl; // через отлалдчик возвращает как надо 123456.8, а на экран выводит 123457
 		}
 		break;
 		case 6:
